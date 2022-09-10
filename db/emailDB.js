@@ -43,7 +43,7 @@ function generateEmail(data) {
 
 function writeHtmlToFile(fileName, data) {
     return fs.writeFileSync(path.join(process.cwd(), fileName), data);
-    generateEmail => email.push(data)
+    
 }
 
 
@@ -57,3 +57,4 @@ function sendEmail() {
 
 writeHtmlToFile()
 sendEmail()
+generateEmail()
