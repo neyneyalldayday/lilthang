@@ -1,4 +1,8 @@
+const path = require("path");
+const fs = require("fs");
 
+const OUTPUT_DIR = path.resolve(__dirname, "output")
+const outputPath = path.join(OUTPUT_DIR, "index.html");
 
 let rec = {
     FIRST_NAME: 'John',
@@ -11,6 +15,8 @@ let rec = {
     POSTAL_CODE: '47701',
     COUNTRY: 'US'
 };
+
+const email = [];
 
 function generateEmail(data) {
     return `
@@ -31,13 +37,23 @@ function generateEmail(data) {
      </div>   
         
      </div>
-   </div>
-
-    
+   </div>    
     `;
 }
 
 function writeHtmlToFile(fileName, data) {
     return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+    generateEmail => email.push(data)
 }
-const sendEmail = (email) => fs.writeTofile('index.html', generateEmail({...rec}))
+
+
+
+function sendEmail() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(email), "utf-8");
+}
+
+writeHtmlToFile()
+sendEmail()
